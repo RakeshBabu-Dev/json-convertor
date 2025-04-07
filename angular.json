@@ -17,17 +17,23 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+
+            "allowedCommonJsDependencies": [
+            ],
             "outputPath": "dist/demo",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+           "assets": [
+  "src/favicon.ico",
+  "src/assets"
+],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "node_modules/codemirror/lib/codemirror.css",
+"node_modules/codemirror/theme/material.css"
+
             ],
             "scripts": []
           },

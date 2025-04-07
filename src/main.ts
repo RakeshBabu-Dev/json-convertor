@@ -1,14 +1,19 @@
+import { importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { provideRouter, Routes } from '@angular/router';
+import { HomeComponent } from './app/components/home/home.component';
 import { AppComponent } from './app/app.component';
-import { routes } from './app/app.routes';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+
+
+const routes: Routes = [
+  { path: '', component: HomeComponent },
+];
 
 bootstrapApplication(AppComponent, {
   providers: [
+
     provideRouter(routes),
-    provideHttpClient(),
-    provideAnimations()
-  ]
-}).catch(err => console.error(err));
+    importProvidersFrom(HttpClientModule),
+  ],
+}).catch((err) => console.error(err));

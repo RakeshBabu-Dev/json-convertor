@@ -1,35 +1,57 @@
-<div class="container">
-  <h2 class="text-center">Categories</h2>
-  <br>
-
-  <div class="row">
-    <div *ngFor="let category of categories; let i = index" class="col-md-3 mb-4">
-      <div class="card category-card"
-           [ngClass]="{'activeTab': selectedCategory === category}"
-           (click)="selectCategory(category)">
-        <div class="card-body text-center">
-          <h5 class="card-title text-capitalize">{{ category }}</h5>
-        </div>
-      </div>
+<div class="editor-container">
+  <!-- Input Editor -->
+  <div class="editor-wrapper">
+    <h3>Input</h3>
+    <div class="editor-holder">
+      <ngx-codemirror
+        [(ngModel)]="code"
+        [options]="editorOptions"
+        class="editor">
+      </ngx-codemirror>
+      <button (click)="copyContent(code)"
+              class="editor-copy-button"
+              title="Copy to clipboard"
+              [disabled]="!code">
+        <svg class="copy-icon" viewBox="0 0 24 24">
+          <path d="M16 1  H 4  c -1.1 0  -2  .9  -2  2  v 14  h 2  V 3  h 12  V 1  z  m 3 4  H 8  c -1.1 0  -2  .9  -2  2  v 14  c 0 1.1  .9 2 2 2  h 11  c 1.1 0 2  -.9 2  -2  V 7  c 0  -1.1  -.9  -2  -2  -2  z  m 0 16  H 8  V 7  h 11  v 14  z"></path>
+        </svg>
+      </button>
     </div>
   </div>
 
-  <!-- Selected Category Products Section -->
-  <div *ngIf="selectedCategory" class="mt-5">
-    <h3 class="text-center category-header text-muted">Products in
-      <span class="text-capitalize  text-warning">{{ selectedCategory }}</span></h3>
-
-    <div class="row mt-5">
-      <div *ngFor="let product of products" class="col-md-4 mb-4">
-        <div class="card product-card h-100 shadow-sm" (click)="viewProduct(product.id)">
-          <img [src]="product.image" class="card-img-top product-img p-3" [alt]="product.title">
-          <div class="card-body text-center">
-            <h5 class="card-title product-title">{{ product.title }}</h5>
-            <p class="card-text product-price text-muted">₹ {{ product.price }}</p>
-            <button class="btn def-application-btn-color w-100 mt-2">View Details</button>
-          </div>
-        </div>
-      </div>
+  <!-- Output Editor -->
+  <div class="editor-wrapper">
+    <h3>Output</h3>
+    <div class="editor-holder">
+      <ngx-codemirror
+        [ngModel]="convertedCode"
+        [options]="readOnlyOptions"
+        readonly="true"
+        class="editor">
+      </ngx-codemirror>
+      <button (click)="copyContent(convertedCode, true)"
+              class="editor-copy-button"
+              title="Copy to clipboard"
+              [disabled]="!convertedCode">
+        <svg class="copy-icon" viewBox="0 0 24 24">
+          <path d="M16 1  H 4  c -1.1 0  -2  .9  -2  2  v 14  h 2  V 3  h 12  V 1  z  m 3 4  H 8  c -1.1 0  -2  .9  -2  2  v 14  c 0 1.1  .9 2 2 2  h 11  c 1.1 0 2  -.9 2  -2  V 7  c 0  -1.1  -.9  -2  -2  -2  z  m 0 16  H 8  V 7  h 11  v 14  z"></path>
+        </svg>
+      </button>
     </div>
   </div>
+</div>
+
+<!-- Convert Button Centered -->
+<div class="convert-btn-container">
+  <button (click)="convertCode()" class="submit-button">
+    Convert to JSON
+  </button>
+</div>
+
+<div *ngIf="error" class="error-message">
+  {{ error }}
+</div>
+
+<div *ngIf="showCopyNotification" class="copy-notification">
+  Copied to clipboard!
 </div>

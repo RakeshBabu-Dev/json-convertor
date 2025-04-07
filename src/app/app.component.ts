@@ -1,13 +1,10 @@
-  import { Component } from '@angular/core';
-  import { RouterOutlet } from '@angular/router';
-  import { HeaderComponent } from './components/header/header.component';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
-  @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    standalone: true,
-    imports: [RouterOutlet, HeaderComponent]
-  })
-  export class AppComponent {
-    title = 'E-Shop';
-  }
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterModule], // Import RouterModule for standalone use
+  template: `<router-outlet></router-outlet>`, // Load routes here
+})
+export class AppComponent { }
